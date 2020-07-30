@@ -11,3 +11,29 @@
     скоростью загрузки
   </li>
 </ul>
+
+<h3>Документация:</h3>
+<p>
+  Плагин создает глобальный экземпляр класса $cfextend;
+</p>
+<p>
+  Для создания области в теме:
+
+```
+  add_action('after_setup_theme', 'register_forms_locations');
+
+  function register_forms_locations () {
+    global $cfextend;
+    $cfextend->register_form_location('back_request', ['label' => 'Заказать тестирование']);
+  }
+```
+
+</p>
+<p>
+  Для вывода формы привязанной к заданной области:
+
+```
+echo $cfextend->get_form('back_request');
+```
+
+</p>
