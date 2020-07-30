@@ -39,9 +39,9 @@ const appendRecaptchaResponse = (resolve, reject, form) => {
   disableSubmitBtn(form);
   grecaptcha.ready(() => {
     grecaptcha.execute(cfextend.recaptchaSiteKey, { action: form.dataset.captchaAction || 'submit' }).then(token => {
-      let input = dom.findFirst('.g-recaptcha-response', form);
+      let input = dom.findFirst('input[name="_wpcf7_recaptcha_response"]', form);
       if (!input) {
-        input = dom.create('input', { type: 'hidden', name: 'g-recaptcha-response', className: 'g-recaptcha-response' });
+        input = dom.create('input', { type: 'hidden', name: '_wpcf7_recaptcha_response' });
         form.appendChild(input);
       }
       input.value = token;
