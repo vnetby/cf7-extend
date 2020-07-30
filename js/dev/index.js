@@ -18,6 +18,7 @@ const start = () => {
 
 const initRecaptchaForm = form => {
   dom.onClick('button[type="submit"], input[type="submit"]', e => {
+    if (!cfextend.recaptchaSiteKey) return;
     e.preventDefault();
     recaptcha(form).then(res => dom.dispatch(form, 'submit'));
   }, form);
