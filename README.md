@@ -24,7 +24,7 @@
 
   function register_forms_locations () {
     global $cfextend;
-    $cfextend->register_form_location('back_request', ['label' => 'Заказать тестирование']);
+    $cfextend->register_form_location('back_request', ['label' => 'Заказать обратный звонок']);
   }
 ```
 
