@@ -14,8 +14,8 @@
  * Domain Path: /languages
  * 
  */
-
 define('CFEXT_PATH', dirname(__FILE__) . '/');
+define('CFEXT_URI', plugin_dir_url(__FILE__));
 
 require_once CFEXT_PATH . 'includes/class-cfext-common.php';
 require_once CFEXT_PATH . 'includes/class-cfext-load.php';

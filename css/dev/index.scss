@@ -1,0 +1,11 @@
+.wpcf7-form {
+  .disabled[type="submit"] {
+    opacity: 0.4;
+    pointer-events: none;
+    user-select: none;
+  }
+}
+
+.grecaptcha-badge {
+  display: none;
+}

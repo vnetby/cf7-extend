@@ -31,7 +31,9 @@ class CFext_Load extends CFext_Common
 
   private function add_hooks()
   {
-    add_action('wp_enqueue_scripts', [$this, '__remove_recaptcha_script']);
+    add_action('wp_enqueue_scripts', [$this, '__remove_recaptcha_script'], 11);
+    add_action('wp_enqueue_scripts', [$this, '__register_front_scripts']);
+
     add_action('admin_menu', [$this, '__add_admin_page']);
 
     add_filter('wpcf7_display_message', [$this, '__wpcf7_custom_messages'], 1, 2);
@@ -49,6 +51,56 @@ class CFext_Load extends CFext_Common
     wp_deregister_script('google-recaptcha');
   }
 
+
+
+
+
+
+  public function __register_front_scripts()
+  {
+    wp_enqueue_script('cfextend-scripts', CFEXT_URI . 'js/index.min.js', [], false, true);
+
+    $siteKey = $this->get_wpcf7_recaptcha_site_key();
+
+    wp_localize_script('cfextend-scripts', 'cfextend', [
+      'recaptchaSrc' => $this->get_recaptcha_script_src($siteKey),
+      'recaptchaSiteKey' => $siteKey
+    ]);
+
+
+    wp_enqueue_style('cfextend-style', CFEXT_URI . 'css/index.min.css');
+  }
+
+
+
+
+
+
+
+
+  private function get_wpcf7_recaptcha_site_key()
+  {
+    $service = WPCF7_RECAPTCHA::get_instance();
+    if (!$service->is_active()) return false;
+    return $service->get_sitekey();
+  }
+
+
+
+
+
+
+
+  private function get_recaptcha_script_src($siteKey)
+  {
+    $url = add_query_arg(
+      [
+        'render' => $siteKey,
+      ],
+      'https://www.google.com/recaptcha/api.js'
+    );
+    return $url;
+  }
 
 
 
